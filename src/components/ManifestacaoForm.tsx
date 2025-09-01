@@ -27,21 +27,21 @@ const ManifestacaoForm: React.FC<ManifestacaoFormProps> = ({ onSubmit, isLoading
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Nome */}
         <div className="form-group">
-          <label htmlFor="nome" className="form-label">
+          <label htmlFor="nomeSolicitante" className="form-label">
             Nome Completo *
           </label>
           <input
-            id="nome"
+            id="nomeSolicitante"
             type="text"
-            className={`form-input ${errors.nome ? 'border-red-500' : ''}`}
+            className={`form-input ${errors.nomeSolicitante ? 'border-red-500' : ''}`}
             placeholder="Digite seu nome completo"
-            {...register('nome', { 
+            {...register('nomeSolicitante', { 
               required: 'Nome é obrigatório',
               minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' }
             })}
           />
-          {errors.nome && (
-            <span className="text-red-500 text-sm mt-1">{errors.nome.message}</span>
+          {errors.nomeSolicitante && (
+            <span className="text-red-500 text-sm mt-1">{errors.nomeSolicitante.message}</span>
           )}
         </div>
 
@@ -131,6 +131,27 @@ const ManifestacaoForm: React.FC<ManifestacaoFormProps> = ({ onSubmit, isLoading
         />
         {errors.endereco && (
           <span className="text-red-500 text-sm mt-1">{errors.endereco.message}</span>
+        )}
+      </div>
+
+      {/* Assunto */}
+      <div className="form-group">
+        <label htmlFor="assunto" className="form-label">
+          Assunto *
+        </label>
+        <input
+          id="assunto"
+          type="text"
+          className={`form-input ${errors.assunto ? 'border-red-500' : ''}`}
+          placeholder="Digite o assunto da manifestação"
+          {...register('assunto', { 
+            required: 'Assunto é obrigatório',
+            minLength: { value: 5, message: 'Assunto deve ter pelo menos 5 caracteres' },
+            maxLength: { value: 200, message: 'Assunto deve ter no máximo 200 caracteres' }
+          })}
+        />
+        {errors.assunto && (
+          <span className="text-red-500 text-sm mt-1">{errors.assunto.message}</span>
         )}
       </div>
 

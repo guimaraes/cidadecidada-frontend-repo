@@ -1,13 +1,14 @@
 export interface Manifestacao {
   id: number;
   protocolo: string;
-  nome: string;
+  nomeSolicitante: string;
   email: string;
   telefone: string;
   tipo: TipoManifestacao;
   status: StatusManifestacao;
+  assunto: string;
   descricao: string;
-  endereco: string;
+  endereco?: string;
   dataCriacao: string;
   dataAtualizacao?: string;
   observacoes?: string;
@@ -30,12 +31,13 @@ export type StatusManifestacao =
   | 'ARQUIVADA';
 
 export interface NovaManifestacao {
-  nome: string;
+  nomeSolicitante: string;
   email: string;
   telefone: string;
   tipo: TipoManifestacao;
+  assunto: string;
   descricao: string;
-  endereco: string;
+  endereco?: string;
 }
 
 export interface AtualizarManifestacao {

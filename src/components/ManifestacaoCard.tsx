@@ -62,13 +62,13 @@ const ManifestacaoCard: React.FC<ManifestacaoCardProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <h4 className="font-medium text-gray-700 mb-1">Solicitante</h4>
-          <p className="text-sm text-gray-600">{manifestacao.nome}</p>
+          <p className="text-sm text-gray-600">{manifestacao.nomeSolicitante}</p>
           <p className="text-sm text-gray-600">{manifestacao.email}</p>
           <p className="text-sm text-gray-600">{manifestacao.telefone}</p>
         </div>
         <div>
-          <h4 className="font-medium text-gray-700 mb-1">Endereço</h4>
-          <p className="text-sm text-gray-600">{manifestacao.endereco}</p>
+          <h4 className="font-medium text-gray-700 mb-1">Assunto</h4>
+          <p className="text-sm text-gray-600">{manifestacao.assunto}</p>
         </div>
       </div>
 
