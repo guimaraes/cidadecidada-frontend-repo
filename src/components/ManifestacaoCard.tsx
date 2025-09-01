@@ -108,18 +108,32 @@ const ManifestacaoCard: React.FC<ManifestacaoCardProps> = ({
               Em Análise
             </button>
             <button
-              onClick={() => handleStatusUpdate('RESOLVIDO')}
-              disabled={isUpdating || manifestacao.status === 'RESOLVIDO'}
+              onClick={() => handleStatusUpdate('EM_ANDAMENTO')}
+              disabled={isUpdating || manifestacao.status === 'EM_ANDAMENTO'}
+              className="btn btn-secondary btn-sm"
+            >
+              Em Andamento
+            </button>
+            <button
+              onClick={() => handleStatusUpdate('RESOLVIDA')}
+              disabled={isUpdating || manifestacao.status === 'RESOLVIDA'}
               className="btn btn-success btn-sm"
             >
               Resolver
             </button>
             <button
-              onClick={() => handleStatusUpdate('REJEITADO')}
-              disabled={isUpdating || manifestacao.status === 'REJEITADO'}
+              onClick={() => handleStatusUpdate('CANCELADA')}
+              disabled={isUpdating || manifestacao.status === 'CANCELADA'}
               className="btn btn-danger btn-sm"
             >
-              Rejeitar
+              Cancelar
+            </button>
+            <button
+              onClick={() => handleStatusUpdate('ARQUIVADA')}
+              disabled={isUpdating || manifestacao.status === 'ARQUIVADA'}
+              className="btn btn-secondary btn-sm"
+            >
+              Arquivar
             </button>
           </div>
 

@@ -1,33 +1,39 @@
 import { TipoManifestacao, StatusManifestacao } from '../types';
 
 export const TIPOS_MANIFESTACAO: Record<TipoManifestacao, string> = {
+  DENUNCIA: 'Denúncia',
   RECLAMACAO: 'Reclamação',
   SUGESTAO: 'Sugestão',
   ELOGIO: 'Elogio',
-  DENUNCIA: 'Denúncia',
   SOLICITACAO: 'Solicitação',
+  INFORMACAO: 'Informação',
 };
 
 export const STATUS_MANIFESTACAO: Record<StatusManifestacao, string> = {
-  PENDENTE: 'Pendente',
+  ABERTA: 'Aberta',
   EM_ANALISE: 'Em Análise',
-  RESOLVIDO: 'Resolvido',
-  REJEITADO: 'Rejeitado',
+  EM_ANDAMENTO: 'Em Andamento',
+  RESOLVIDA: 'Resolvida',
+  CANCELADA: 'Cancelada',
+  ARQUIVADA: 'Arquivada',
 };
 
 export const STATUS_COLORS: Record<StatusManifestacao, string> = {
-  PENDENTE: 'badge-pending',
+  ABERTA: 'badge-pending',
   EM_ANALISE: 'badge-in-progress',
-  RESOLVIDO: 'badge-resolved',
-  REJEITADO: 'badge-rejected',
+  EM_ANDAMENTO: 'badge-in-progress',
+  RESOLVIDA: 'badge-resolved',
+  CANCELADA: 'badge-rejected',
+  ARQUIVADA: 'badge-rejected',
 };
 
 export const TIPO_COLORS: Record<TipoManifestacao, string> = {
+  DENUNCIA: 'text-orange-600',
   RECLAMACAO: 'text-red-600',
   SUGESTAO: 'text-blue-600',
   ELOGIO: 'text-green-600',
-  DENUNCIA: 'text-orange-600',
   SOLICITACAO: 'text-purple-600',
+  INFORMACAO: 'text-gray-600',
 };
 
 export const formatDate = (dateString: string): string => {

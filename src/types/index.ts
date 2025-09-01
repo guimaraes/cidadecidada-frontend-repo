@@ -14,17 +14,20 @@ export interface Manifestacao {
 }
 
 export type TipoManifestacao = 
+  | 'DENUNCIA'
   | 'RECLAMACAO'
   | 'SUGESTAO'
   | 'ELOGIO'
-  | 'DENUNCIA'
-  | 'SOLICITACAO';
+  | 'SOLICITACAO'
+  | 'INFORMACAO';
 
 export type StatusManifestacao = 
-  | 'PENDENTE'
+  | 'ABERTA'
   | 'EM_ANALISE'
-  | 'RESOLVIDO'
-  | 'REJEITADO';
+  | 'EM_ANDAMENTO'
+  | 'RESOLVIDA'
+  | 'CANCELADA'
+  | 'ARQUIVADA';
 
 export interface NovaManifestacao {
   nome: string;
@@ -42,10 +45,12 @@ export interface AtualizarManifestacao {
 
 export interface Indicadores {
   total: number;
-  pendentes: number;
+  abertas: number;
   emAnalise: number;
-  resolvidos: number;
-  rejeitados: number;
+  emAndamento: number;
+  resolvidas: number;
+  canceladas: number;
+  arquivadas: number;
   hoje: number;
   porTipo: {
     [key in TipoManifestacao]: number;

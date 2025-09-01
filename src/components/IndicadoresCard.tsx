@@ -6,7 +6,8 @@ import {
   CheckCircle, 
   XCircle, 
   TrendingUp,
-  Calendar 
+  Calendar,
+  Archive
 } from 'lucide-react';
 
 interface IndicadoresCardProps {
@@ -23,8 +24,8 @@ const IndicadoresCard: React.FC<IndicadoresCardProps> = ({ indicadores }) => {
       textColor: 'text-blue-600'
     },
     {
-      title: 'Pendentes',
-      value: indicadores.pendentes,
+      title: 'Abertas',
+      value: indicadores.abertas,
       icon: Clock,
       color: 'bg-yellow-500',
       textColor: 'text-yellow-600'
@@ -37,18 +38,32 @@ const IndicadoresCard: React.FC<IndicadoresCardProps> = ({ indicadores }) => {
       textColor: 'text-blue-600'
     },
     {
-      title: 'Resolvidos',
-      value: indicadores.resolvidos,
+      title: 'Em Andamento',
+      value: indicadores.emAndamento,
+      icon: TrendingUp,
+      color: 'bg-orange-500',
+      textColor: 'text-orange-600'
+    },
+    {
+      title: 'Resolvidas',
+      value: indicadores.resolvidas,
       icon: CheckCircle,
       color: 'bg-green-500',
       textColor: 'text-green-600'
     },
     {
-      title: 'Rejeitados',
-      value: indicadores.rejeitados,
+      title: 'Canceladas',
+      value: indicadores.canceladas,
       icon: XCircle,
       color: 'bg-red-500',
       textColor: 'text-red-600'
+    },
+    {
+      title: 'Arquivadas',
+      value: indicadores.arquivadas,
+      icon: Archive,
+      color: 'bg-gray-500',
+      textColor: 'text-gray-600'
     },
     {
       title: 'Hoje',
@@ -68,7 +83,7 @@ const IndicadoresCard: React.FC<IndicadoresCardProps> = ({ indicadores }) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-4 mb-6">
         {cards.map((card) => (
           <div key={card.title} className="text-center p-4 bg-gray-50 rounded-lg">
             <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${card.color} mb-3`}>

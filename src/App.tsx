@@ -4,6 +4,7 @@ import Header from './components/Header';
 import NovaManifestacaoPage from './pages/NovaManifestacao';
 import ConsultarProtocoloPage from './pages/ConsultarProtocolo';
 import PainelAtendentePage from './pages/PainelAtendente';
+import MockModeIndicator from './components/MockModeIndicator';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           <Route path="/atendente" element={<PainelAtendentePage />} />
         </Routes>
       </main>
+      <MockModeIndicator />
     </div>
   );
 };
