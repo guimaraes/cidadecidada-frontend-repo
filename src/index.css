@@ -918,6 +918,28 @@ a:hover {
   margin-bottom: 15px;
 }
 
+/* Filtros de Busca - Layout Horizontal Forçado */
+.filtros-manifestacao .row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+}
+
+.filtros-manifestacao .col-md-6 {
+  flex: 0 0 50% !important;
+  max-width: 50% !important;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+
+.filtros-manifestacao .col-md-12 {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+
 .form-control {
   display: block;
   width: 100%;

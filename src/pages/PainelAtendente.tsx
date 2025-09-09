@@ -2,7 +2,7 @@ import React from 'react';
 import { Manifestacao, FiltrosManifestacao, StatusManifestacao } from '../types';
 import { manifestacaoService } from '../services/api';
 import FiltrosManifestacaoComponent from '../components/FiltrosManifestacao';
-import ManifestacaoCard from '../components/ManifestacaoCard';
+import ManifestacaoTable from '../components/ManifestacaoTable';
 import { Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -11,34 +11,61 @@ const PainelAtendentePage: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isRefreshing, setIsRefreshing] = React.useState(false);
   const [filtros, setFiltros] = React.useState<FiltrosManifestacao>({});
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
+  const [totalItems, setTotalItems] = React.useState(0);
+  const itemsPerPage = 10;
 
-  const carregarDados = React.useCallback(async (showLoading = true) => {
+  const carregarDados = React.useCallback(async (showLoading = true, page = 1) => {
     if (showLoading) setIsLoading(true);
     
     try {
-      const manifestacoesData = await manifestacaoService.listar(filtros);
+      // Adiciona parâmetros de paginação aos filtros
+      const filtrosComPaginacao = {
+        ...filtros,
+        page: page - 1, // API usa 0-based indexing
+        size: itemsPerPage
+      };
+      
+      const manifestacoesData = await manifestacaoService.listar(filtrosComPaginacao);
       setManifestacoes(manifestacoesData);
+      
+      // Calcula total de páginas (assumindo que a API retorna o total)
+      // Se a API não retornar o total, vamos usar uma estimativa baseada no tamanho da resposta
+      const estimatedTotal = manifestacoesData.length === itemsPerPage ? 
+        (page * itemsPerPage) + 1 : // Se retornou o tamanho máximo, provavelmente há mais páginas
+        ((page - 1) * itemsPerPage) + manifestacoesData.length;
+      
+      setTotalItems(estimatedTotal);
+      setTotalPages(Math.ceil(estimatedTotal / itemsPerPage));
+      setCurrentPage(page);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
       toast.error('Erro ao carregar dados. Tente novamente.');
     } finally {
       setIsLoading(false);
     }
-  }, [filtros]);
+  }, [filtros, itemsPerPage]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await carregarDados(false);
+    await carregarDados(false, currentPage);
     setIsRefreshing(false);
     toast.success('Dados atualizados!');
   };
 
   const handleFiltrosChange = (novosFiltros: FiltrosManifestacao) => {
     setFiltros(novosFiltros);
+    setCurrentPage(1); // Reset para primeira página quando filtros mudam
   };
 
   const handleLimparFiltros = () => {
     setFiltros({});
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    carregarDados(true, page);
   };
 
   const handleStatusUpdate = async (id: number, status: string, observacoes?: string) => {
@@ -116,11 +143,6 @@ const PainelAtendentePage: React.FC = () => {
 
         {/* Filters Section */}
         <div className="box box-info">
-          <div className="box-header">
-            <h3 className="box-title">
-              <i className="fa fa-filter text-info"></i> Filtros de Busca
-            </h3>
-          </div>
           <div className="box-body">
             <FiltrosManifestacaoComponent
               filtros={filtros}
@@ -138,46 +160,26 @@ const PainelAtendentePage: React.FC = () => {
             </h3>
             <div className="box-tools pull-right">
               <span className="label label-success">
-                {manifestacoes.length} manifestação{manifestacoes.length !== 1 ? 'ões' : ''}
+                {totalItems} manifestação{totalItems !== 1 ? 'ões' : ''} total
               </span>
             </div>
           </div>
           <div className="box-body">
-            {manifestacoes.length === 0 ? (
-              <div className="text-center" style={{padding: '40px 0'}}>
-                <div className="info-box">
-                  <span className="info-box-icon bg-gray">
-                    <i className="fa fa-search"></i>
-                  </span>
-                  <div className="info-box-content">
-                    <span className="info-box-text">Nenhuma manifestação encontrada</span>
-                    <span className="info-box-number">0</span>
-                    <div className="progress">
-                      <div className="progress-bar" style={{width: '0%'}}></div>
-                    </div>
-                    <span className="progress-description">
-                      Não há manifestações que correspondam aos filtros aplicados.
-                    </span>
-                  </div>
-                </div>
+            <ManifestacaoTable
+              manifestacoes={manifestacoes}
+              onStatusUpdate={handleStatusUpdate}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+            {manifestacoes.length === 0 && (
+              <div className="text-center" style={{marginTop: '20px'}}>
                 <button
                   onClick={handleLimparFiltros}
                   className="btn btn-warning"
                 >
                   <i className="fa fa-refresh"></i> Limpar Filtros
                 </button>
-              </div>
-            ) : (
-              <div className="row">
-                {manifestacoes.map((manifestacao) => (
-                  <div key={manifestacao.id} className="col-md-12" style={{marginBottom: '20px'}}>
-                    <ManifestacaoCard
-                      manifestacao={manifestacao}
-                      showActions={true}
-                      onStatusUpdate={handleStatusUpdate}
-                    />
-                  </div>
-                ))}
               </div>
             )}
           </div>
