@@ -65,4 +65,5 @@ export interface FiltrosManifestacao {
   dataInicio?: string;
   dataFim?: string;
   protocolo?: string;
+  email?: string;
 }

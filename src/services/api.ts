@@ -9,14 +9,14 @@ import {
 
 // Configuração base do axios
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080/api',
+  baseURL: process.env.REACT_APP_API_URL || 'http://193.187.129.122:8080/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 console.log('🔧 Configuração da API:', {
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080/api',
+  baseURL: process.env.REACT_APP_API_URL || 'http://193.187.129.122:8080/api',
   env: process.env.NODE_ENV
 });
 
@@ -41,8 +41,10 @@ export const manifestacaoService = {
 
   // Buscar manifestação por protocolo
   async buscarPorProtocolo(protocolo: string): Promise<Manifestacao> {
-    console.log('📡 Buscando manifestação por protocolo:', protocolo);
-    const response = await api.get(`/manifestacoes/protocolo/${protocolo}`);
+    // Remove o hífen do protocolo antes de enviar para a API
+    const protocoloSemHifen = protocolo.replace(/-/g, '');
+    console.log('📡 Buscando manifestação por protocolo:', protocolo, '->', protocoloSemHifen);
+    const response = await api.get(`/manifestacoes/protocolo/${protocoloSemHifen}`);
     console.log('✅ Manifestação encontrada:', response.data);
     return response.data;
   },

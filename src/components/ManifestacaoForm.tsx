@@ -23,127 +23,119 @@ const ManifestacaoForm: React.FC<ManifestacaoFormProps> = ({ onSubmit, isLoading
   };
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Nome */}
-        <div className="form-group">
-          <label htmlFor="nomeSolicitante" className="form-label">
-            Nome Completo *
-          </label>
-          <input
-            id="nomeSolicitante"
-            type="text"
-            className={`form-input ${errors.nomeSolicitante ? 'border-red-500' : ''}`}
-            placeholder="Digite seu nome completo"
-            {...register('nomeSolicitante', { 
-              required: 'Nome é obrigatório',
-              minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' }
-            })}
-          />
-          {errors.nomeSolicitante && (
-            <span className="text-red-500 text-sm mt-1">{errors.nomeSolicitante.message}</span>
-          )}
+    <form onSubmit={handleSubmit(onFormSubmit)}>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="nomeSolicitante">Nome Completo *</label>
+            <input
+              id="nomeSolicitante"
+              type="text"
+              className={`form-control ${errors.nomeSolicitante ? 'is-invalid' : ''}`}
+              placeholder="Digite seu nome completo"
+              {...register('nomeSolicitante', { 
+                required: 'Nome é obrigatório',
+                minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' }
+              })}
+            />
+            {errors.nomeSolicitante && (
+              <div className="invalid-feedback">{errors.nomeSolicitante.message}</div>
+            )}
+          </div>
         </div>
-
-        {/* Email */}
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            E-mail *
-          </label>
-          <input
-            id="email"
-            type="email"
-            className={`form-input ${errors.email ? 'border-red-500' : ''}`}
-            placeholder="seu@email.com"
-            {...register('email', { 
-              required: 'E-mail é obrigatório',
-              pattern: { 
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'E-mail inválido'
-              }
-            })}
-          />
-          {errors.email && (
-            <span className="text-red-500 text-sm mt-1">{errors.email.message}</span>
-          )}
-        </div>
-
-        {/* Telefone */}
-        <div className="form-group">
-          <label htmlFor="telefone" className="form-label">
-            Telefone *
-          </label>
-          <input
-            id="telefone"
-            type="tel"
-            className={`form-input ${errors.telefone ? 'border-red-500' : ''}`}
-            placeholder="(11) 99999-9999"
-            {...register('telefone', { 
-              required: 'Telefone é obrigatório',
-              pattern: {
-                value: /^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$/,
-                message: 'Telefone inválido'
-              }
-            })}
-          />
-          {errors.telefone && (
-            <span className="text-red-500 text-sm mt-1">{errors.telefone.message}</span>
-          )}
-        </div>
-
-        {/* Tipo */}
-        <div className="form-group">
-          <label htmlFor="tipo" className="form-label">
-            Tipo de Manifestação *
-          </label>
-          <select
-            id="tipo"
-            className={`form-select ${errors.tipo ? 'border-red-500' : ''}`}
-            {...register('tipo', { required: 'Tipo é obrigatório' })}
-          >
-            <option value="">Selecione o tipo</option>
-            {Object.entries(TIPOS_MANIFESTACAO).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          {errors.tipo && (
-            <span className="text-red-500 text-sm mt-1">{errors.tipo.message}</span>
-          )}
+        
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="email">E-mail *</label>
+            <input
+              id="email"
+              type="email"
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+              placeholder="seu@email.com"
+              {...register('email', { 
+                required: 'E-mail é obrigatório',
+                pattern: { 
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'E-mail inválido'
+                }
+              })}
+            />
+            {errors.email && (
+              <div className="invalid-feedback">{errors.email.message}</div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Endereço */}
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="telefone">Telefone *</label>
+            <input
+              id="telefone"
+              type="tel"
+              className={`form-control ${errors.telefone ? 'is-invalid' : ''}`}
+              placeholder="(11) 99999-9999"
+              {...register('telefone', { 
+                required: 'Telefone é obrigatório',
+                pattern: {
+                  value: /^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}-?[0-9]{4}$/,
+                  message: 'Telefone inválido'
+                }
+              })}
+            />
+            {errors.telefone && (
+              <div className="invalid-feedback">{errors.telefone.message}</div>
+            )}
+          </div>
+        </div>
+        
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="tipo">Tipo de Manifestação *</label>
+            <select
+              id="tipo"
+              className={`form-control ${errors.tipo ? 'is-invalid' : ''}`}
+              {...register('tipo', { required: 'Tipo é obrigatório' })}
+            >
+              <option value="">Selecione o tipo</option>
+              {Object.entries(TIPOS_MANIFESTACAO).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            {errors.tipo && (
+              <div className="invalid-feedback">{errors.tipo.message}</div>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="form-group">
-        <label htmlFor="endereco" className="form-label">
-          Endereço *
-        </label>
+        <label htmlFor="endereco">Endereço Completo *</label>
         <input
           id="endereco"
           type="text"
-          className={`form-input ${errors.endereco ? 'border-red-500' : ''}`}
-          placeholder="Rua, número, bairro, cidade"
+          className={`form-control ${errors.endereco ? 'is-invalid' : ''}`}
+          placeholder="Rua, número, bairro, cidade, CEP"
           {...register('endereco', { 
             required: 'Endereço é obrigatório',
             minLength: { value: 10, message: 'Endereço deve ter pelo menos 10 caracteres' }
           })}
         />
         {errors.endereco && (
-          <span className="text-red-500 text-sm mt-1">{errors.endereco.message}</span>
+          <div className="invalid-feedback">{errors.endereco.message}</div>
         )}
       </div>
 
-      {/* Assunto */}
       <div className="form-group">
-        <label htmlFor="assunto" className="form-label">
-          Assunto *
-        </label>
+        <label htmlFor="assunto">Assunto da Manifestação *</label>
         <input
           id="assunto"
           type="text"
-          className={`form-input ${errors.assunto ? 'border-red-500' : ''}`}
-          placeholder="Digite o assunto da manifestação"
+          className={`form-control ${errors.assunto ? 'is-invalid' : ''}`}
+          placeholder="Digite um título descritivo para sua manifestação"
           {...register('assunto', { 
             required: 'Assunto é obrigatório',
             minLength: { value: 5, message: 'Assunto deve ter pelo menos 5 caracteres' },
@@ -151,18 +143,15 @@ const ManifestacaoForm: React.FC<ManifestacaoFormProps> = ({ onSubmit, isLoading
           })}
         />
         {errors.assunto && (
-          <span className="text-red-500 text-sm mt-1">{errors.assunto.message}</span>
+          <div className="invalid-feedback">{errors.assunto.message}</div>
         )}
       </div>
 
-      {/* Descrição */}
       <div className="form-group">
-        <label htmlFor="descricao" className="form-label">
-          Descrição da Manifestação *
-        </label>
+        <label htmlFor="descricao">Descrição Detalhada *</label>
         <textarea
           id="descricao"
-          className={`form-textarea ${errors.descricao ? 'border-red-500' : ''}`}
+          className={`form-control ${errors.descricao ? 'is-invalid' : ''}`}
           placeholder="Descreva detalhadamente sua manifestação..."
           rows={5}
           {...register('descricao', { 
@@ -172,25 +161,24 @@ const ManifestacaoForm: React.FC<ManifestacaoFormProps> = ({ onSubmit, isLoading
           })}
         />
         {errors.descricao && (
-          <span className="text-red-500 text-sm mt-1">{errors.descricao.message}</span>
+          <div className="invalid-feedback">{errors.descricao.message}</div>
         )}
       </div>
 
-      {/* Botão de Envio */}
-      <div className="flex justify-center">
+      <div className="form-group">
         <button
           type="submit"
           disabled={isLoading}
-          className="btn btn-primary min-w-[200px]"
+          className="btn btn-primary"
         >
           {isLoading ? (
             <>
-              <Loader2 size={20} className="loading" />
+              <Loader2 size={16} className="loading" />
               Enviando...
             </>
           ) : (
             <>
-              <Plus size={20} />
+              <Plus size={16} />
               Enviar Manifestação
             </>
           )}

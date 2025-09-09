@@ -39,140 +39,227 @@ const ManifestacaoCard: React.FC<ManifestacaoCardProps> = ({
   };
 
   return (
-    <div className="card">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">
-            Protocolo: {formatProtocolo(manifestacao.protocolo)}
-          </h3>
-          <p className="text-sm text-gray-600">
-            Criado em: {formatDate(manifestacao.dataCriacao)}
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <span className={`badge ${STATUS_COLORS[manifestacao.status]}`}>
-            {STATUS_MANIFESTACAO[manifestacao.status]}
-          </span>
-          <span className={`badge ${TIPO_COLORS[manifestacao.tipo]}`}>
-            {TIPOS_MANIFESTACAO[manifestacao.tipo]}
-          </span>
-        </div>
+    <div className="box box-success">
+      {/* Header com Protocolo */}
+      <div className="box-header">
+        <h3 className="box-title">
+          <i className="fa fa-file-text-o text-primary"></i> Protocolo: {formatProtocolo(manifestacao.protocolo)}
+        </h3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <h4 className="font-medium text-gray-700 mb-1">Solicitante</h4>
-          <p className="text-sm text-gray-600">{manifestacao.nomeSolicitante}</p>
-          <p className="text-sm text-gray-600">{manifestacao.email}</p>
-          <p className="text-sm text-gray-600">{manifestacao.telefone}</p>
-        </div>
-        <div>
-          <h4 className="font-medium text-gray-700 mb-1">Assunto</h4>
-          <p className="text-sm text-gray-600">{manifestacao.assunto}</p>
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <h4 className="font-medium text-gray-700 mb-1">Descrição</h4>
-        <p className="text-sm text-gray-600 whitespace-pre-wrap">
-          {manifestacao.descricao}
-        </p>
-      </div>
-
-      {manifestacao.observacoes && (
-        <div className="mb-4">
-          <h4 className="font-medium text-gray-700 mb-1">Observações</h4>
-          <p className="text-sm text-gray-600 whitespace-pre-wrap">
-            {manifestacao.observacoes}
-          </p>
-        </div>
-      )}
-
-      {manifestacao.dataAtualizacao && (
-        <div className="mb-4">
-          <h4 className="font-medium text-gray-700 mb-1">Última Atualização</h4>
-          <p className="text-sm text-gray-600">
-            {formatDate(manifestacao.dataAtualizacao)}
-          </p>
-        </div>
-      )}
-
-      {showActions && (
-        <div className="border-t border-gray-200 pt-4">
-          <div className="flex flex-wrap gap-2 mb-4">
-            <button
-              onClick={() => handleStatusUpdate('EM_ANALISE')}
-              disabled={isUpdating || manifestacao.status === 'EM_ANALISE'}
-              className="btn btn-secondary btn-sm"
-            >
-              Em Análise
-            </button>
-            <button
-              onClick={() => handleStatusUpdate('EM_ANDAMENTO')}
-              disabled={isUpdating || manifestacao.status === 'EM_ANDAMENTO'}
-              className="btn btn-secondary btn-sm"
-            >
-              Em Andamento
-            </button>
-            <button
-              onClick={() => handleStatusUpdate('RESOLVIDA')}
-              disabled={isUpdating || manifestacao.status === 'RESOLVIDA'}
-              className="btn btn-success btn-sm"
-            >
-              Resolver
-            </button>
-            <button
-              onClick={() => handleStatusUpdate('CANCELADA')}
-              disabled={isUpdating || manifestacao.status === 'CANCELADA'}
-              className="btn btn-danger btn-sm"
-            >
-              Cancelar
-            </button>
-            <button
-              onClick={() => handleStatusUpdate('ARQUIVADA')}
-              disabled={isUpdating || manifestacao.status === 'ARQUIVADA'}
-              className="btn btn-secondary btn-sm"
-            >
-              Arquivar
-            </button>
+      <div className="box-body">
+        {/* Informações do Solicitante */}
+        <div className="row">
+          <div className="col-md-8">
+            <div className="box box-info">
+              <div className="box-header">
+                <h3 className="box-title">
+                  <i className="fa fa-user text-blue"></i> Informações do Solicitante
+                </h3>
+              </div>
+              <div className="box-body">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">
+                        <i className="fa fa-user text-primary"></i> <strong>Nome:</strong>
+                      </label>
+                      <p className="form-control-static" style={{marginTop: '5px', fontSize: '16px'}}>
+                        {manifestacao.nomeSolicitante}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">
+                        <i className="fa fa-tag text-success"></i> <strong>Assunto:</strong>
+                      </label>
+                      <p className="form-control-static" style={{marginTop: '5px', fontSize: '16px'}}>
+                        {manifestacao.assunto}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">
+                        <i className="fa fa-envelope text-warning"></i> <strong>E-mail:</strong>
+                      </label>
+                      <p className="form-control-static" style={{marginTop: '5px', fontSize: '16px'}}>
+                        {manifestacao.email}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">
+                        <i className="fa fa-phone text-info"></i> <strong>Telefone:</strong>
+                      </label>
+                      <p className="form-control-static" style={{marginTop: '5px', fontSize: '16px'}}>
+                        {manifestacao.telefone}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <div className="col-md-4">
+            <div className="box box-success">
+              <div className="box-header">
+                <h3 className="box-title">
+                  <i className="fa fa-info-circle text-green"></i> Resumo
+                </h3>
+              </div>
+              <div className="box-body">
+                <div className="form-group">
+                  <label className="control-label">
+                    <i className="fa fa-calendar text-primary"></i> <strong>Data de Criação:</strong>
+                  </label>
+                  <p className="form-control-static" style={{marginTop: '5px', fontSize: '16px'}}>
+                    {formatDate(manifestacao.dataCriacao)}
+                  </p>
+                </div>
+                <div className="form-group">
+                  <label className="control-label">
+                    <i className="fa fa-flag text-warning"></i> <strong>Status:</strong>
+                  </label>
+                  <p className="form-control-static" style={{marginTop: '5px'}}>
+                    <span className={`label ${STATUS_COLORS[manifestacao.status]} label-lg`}>
+                      {STATUS_MANIFESTACAO[manifestacao.status]}
+                    </span>
+                  </p>
+                </div>
+                <div className="form-group">
+                  <label className="control-label">
+                    <i className="fa fa-tag text-info"></i> <strong>Tipo:</strong>
+                  </label>
+                  <p className="form-control-static" style={{marginTop: '5px'}}>
+                    <span className={`label ${TIPO_COLORS[manifestacao.tipo]} label-lg`}>
+                      {TIPOS_MANIFESTACAO[manifestacao.tipo]}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <div className="space-y-2">
-            <button
-              onClick={() => setShowObservacoes(!showObservacoes)}
-              className="btn btn-outline btn-sm"
-            >
-              {showObservacoes ? 'Ocultar' : 'Adicionar'} Observações
-            </button>
-            
-            {showObservacoes && (
-              <div className="space-y-2">
-                <textarea
-                  value={observacoes}
-                  onChange={(e) => setObservacoes(e.target.value)}
-                  placeholder="Digite observações sobre esta manifestação..."
-                  className="form-textarea"
-                  rows={3}
-                />
-                <div className="flex gap-2">
+        {/* Descrição */}
+        <div className="callout callout-info">
+          <h4><i className="icon fa fa-info"></i> Descrição da Manifestação</h4>
+          <p className="text-justify" style={{lineHeight: '1.6', fontSize: '14px'}}>
+            {manifestacao.descricao}
+          </p>
+        </div>
+
+        {/* Observações */}
+        {manifestacao.observacoes && (
+          <div className="callout callout-warning">
+            <h4><i className="icon fa fa-comment"></i> Observações</h4>
+            <p className="text-justify" style={{lineHeight: '1.6', fontSize: '14px'}}>
+              {manifestacao.observacoes}
+            </p>
+          </div>
+        )}
+
+        {/* Última Atualização */}
+        {manifestacao.dataAtualizacao && (
+          <div className="callout callout-success">
+            <h4><i className="icon fa fa-clock-o"></i> Última Atualização</h4>
+            <p style={{fontSize: '14px', margin: 0}}>
+              {formatDate(manifestacao.dataAtualizacao)}
+            </p>
+          </div>
+        )}
+
+        {/* Ações para Atendentes */}
+        {showActions && (
+          <div className="box-footer">
+            <div className="row">
+              <div className="col-md-12">
+                <h4><i className="fa fa-cogs"></i> Ações Disponíveis</h4>
+                <div className="btn-group" role="group">
                   <button
-                    onClick={() => setShowObservacoes(false)}
-                    className="btn btn-secondary btn-sm"
+                    onClick={() => handleStatusUpdate('EM_ANALISE')}
+                    disabled={isUpdating || manifestacao.status === 'EM_ANALISE'}
+                    className="btn btn-warning"
                   >
-                    Cancelar
+                    <i className="fa fa-search"></i> Em Análise
                   </button>
                   <button
-                    onClick={() => setObservacoes(manifestacao.observacoes || '')}
-                    className="btn btn-outline btn-sm"
+                    onClick={() => handleStatusUpdate('EM_ANDAMENTO')}
+                    disabled={isUpdating || manifestacao.status === 'EM_ANDAMENTO'}
+                    className="btn btn-info"
                   >
-                    Restaurar
+                    <i className="fa fa-play"></i> Em Andamento
+                  </button>
+                  <button
+                    onClick={() => handleStatusUpdate('RESOLVIDA')}
+                    disabled={isUpdating || manifestacao.status === 'RESOLVIDA'}
+                    className="btn btn-success"
+                  >
+                    <i className="fa fa-check"></i> Resolver
+                  </button>
+                  <button
+                    onClick={() => handleStatusUpdate('CANCELADA')}
+                    disabled={isUpdating || manifestacao.status === 'CANCELADA'}
+                    className="btn btn-danger"
+                  >
+                    <i className="fa fa-times"></i> Cancelar
+                  </button>
+                  <button
+                    onClick={() => handleStatusUpdate('ARQUIVADA')}
+                    disabled={isUpdating || manifestacao.status === 'ARQUIVADA'}
+                    className="btn btn-default"
+                  >
+                    <i className="fa fa-archive"></i> Arquivar
                   </button>
                 </div>
               </div>
-            )}
+            </div>
+
+            <div className="row" style={{marginTop: '15px'}}>
+              <div className="col-md-12">
+                <button
+                  onClick={() => setShowObservacoes(!showObservacoes)}
+                  className="btn btn-outline"
+                >
+                  <i className="fa fa-comment"></i> {showObservacoes ? 'Ocultar' : 'Adicionar'} Observações
+                </button>
+                
+                {showObservacoes && (
+                  <div className="form-group" style={{marginTop: '15px'}}>
+                    <label>Observações:</label>
+                    <textarea
+                      value={observacoes}
+                      onChange={(e) => setObservacoes(e.target.value)}
+                      placeholder="Digite observações sobre esta manifestação..."
+                      className="form-control"
+                      rows={3}
+                    />
+                    <div className="btn-group" style={{marginTop: '10px'}}>
+                      <button
+                        onClick={() => setShowObservacoes(false)}
+                        className="btn btn-secondary"
+                      >
+                        <i className="fa fa-times"></i> Cancelar
+                      </button>
+                      <button
+                        onClick={() => setObservacoes(manifestacao.observacoes || '')}
+                        className="btn btn-outline"
+                      >
+                        <i className="fa fa-undo"></i> Restaurar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

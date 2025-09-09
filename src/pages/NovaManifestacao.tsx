@@ -46,28 +46,18 @@ const NovaManifestacaoPage: React.FC = () => {
   }
 
   return (
-    <div className="container py-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Nova Manifestação
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Registre sua manifestação para que possamos atender você da melhor forma possível. 
-            Preencha todos os campos obrigatórios e aguarde o protocolo de acompanhamento.
-          </p>
-        </div>
-
-        <div className="card">
-          <div className="card-header">
-            <h2 className="card-title">Dados da Manifestação</h2>
-            <p className="text-gray-600 text-sm">
-              Preencha os dados abaixo para registrar sua manifestação
-            </p>
+    <div className="row">
+      <div className="col-md-12">
+        {/* Manifestação Box */}
+        <div className="box box-primary">
+          <div className="box-header">
+            <h3 className="box-title">Manifestação</h3>
           </div>
-
-          <ManifestacaoForm onSubmit={handleSubmit} isLoading={isLoading} />
+          <div className="box-body">
+            <ManifestacaoForm onSubmit={handleSubmit} isLoading={isLoading} />
+          </div>
         </div>
+
       </div>
     </div>
   );

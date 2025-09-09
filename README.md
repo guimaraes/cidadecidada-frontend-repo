@@ -1,24 +1,44 @@
-# Cidade Cidadã - Portal de Ouvidoria
+# Cidade Cidadã - Sistema de Manifestações
 
-Frontend em React + TypeScript para o Portal de Ouvidoria Simples (Cidade Cidadã).
+Sistema moderno e responsivo para gerenciamento de manifestações cidadãs, desenvolvido com React e TypeScript.
 
 ## Funcionalidades
 
-- **Registro de Manifestação**: Formulário para cidadãos registrarem manifestações
-- **Consulta de Protocolo**: Busca de manifestações por número de protocolo
-- **Painel do Atendente**: Interface para gerenciamento de manifestações
-- **Indicadores**: Dashboard com estatísticas e métricas
+### Para Cidadãos
+- **Nova Manifestação**: Interface intuitiva para registro de manifestações
+- **Consultar Protocolo**: Acompanhamento do status em tempo real
+- **Design Responsivo**: Funciona perfeitamente em desktop e mobile
+
+### Para Atendentes
+- **Painel de Controle**: Dashboard completo com indicadores e métricas
+- **Gerenciamento**: Atualização de status e observações
+- **Filtros Avançados**: Busca e filtragem eficiente
+
+## Design System
+
+### Características Visuais
+- **Design Moderno**: Interface limpa e profissional
+- **Gradientes e Sombras**: Efeitos visuais sofisticados
+- **Tipografia Hierárquica**: Fonte Inter para melhor legibilidade
+- **Paleta de Cores**: Sistema de cores consistente e acessível
+- **Ícones e Emojis**: Elementos visuais intuitivos
+
+### Componentes
+- **Cards Interativos**: Hover effects e transições suaves
+- **Formulários Inteligentes**: Validação em tempo real com feedback visual
+- **Botões Modernos**: Estados de loading e interações fluidas
+- **Layout Responsivo**: Grid system flexível e adaptável
 
 ## Tecnologias
 
-- React 18
-- TypeScript
-- React Router DOM
-- Axios
-- React Hook Form
-- React Hot Toast
-- Lucide React (ícones)
-- CSS customizado
+- **React 18** - Biblioteca principal
+- **TypeScript** - Tipagem estática
+- **React Router DOM** - Navegação
+- **Axios** - Cliente HTTP
+- **React Hook Form** - Gerenciamento de formulários
+- **React Hot Toast** - Notificações
+- **Lucide React** - Ícones modernos
+- **CSS Custom Properties** - Design system escalável
 
 ## Instalação
 
@@ -68,6 +88,42 @@ O frontend consome os seguintes endpoints:
 - `npm test` - Executa os testes
 - `npm eject` - Ejecta do Create React App
 
+## Melhorias Implementadas
+
+### Design System
+- Variáveis CSS para cores, tipografia e espaçamentos
+- Sistema de grid responsivo
+- Componentes reutilizáveis e consistentes
+- Animações e transições suaves
+
+### Interface do Usuário
+- Header moderno com navegação intuitiva
+- Hero sections com gradientes e call-to-actions
+- Cards informativos com estatísticas
+- Formulários organizados em seções temáticas
+- Footer completo com informações de contato
+
+### Experiência do Usuário
+- Feedback visual em tempo real
+- Estados de loading elegantes
+- Mensagens de erro e sucesso claras
+- Navegação intuitiva e acessível
+
+## 📱 Responsividade
+
+- **Mobile First**: Otimizado para dispositivos móveis
+- **Breakpoints**: Adaptação para tablet e desktop
+- **Touch Friendly**: Elementos otimizados para toque
+- **Performance**: Carregamento rápido em todos os dispositivos
+
+## Paleta de Cores
+
+- **Primary**: #2563eb (Azul principal)
+- **Success**: #10b981 (Verde de sucesso)
+- **Warning**: #f59e0b (Amarelo de aviso)
+- **Danger**: #ef4444 (Vermelho de erro)
+- **Gray Scale**: 50-900 (Escala de cinzas)
+
 ## Acessibilidade
 
 O projeto foi desenvolvido seguindo boas práticas de acessibilidade:
@@ -77,3 +133,4 @@ O projeto foi desenvolvido seguindo boas práticas de acessibilidade:
 - Navegação por teclado
 - Estrutura semântica HTML
 - Tamanhos de fonte legíveis
+- Feedback visual claro para interações

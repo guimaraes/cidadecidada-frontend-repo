@@ -1,7 +1,6 @@
 import React from 'react';
 import { FiltrosManifestacao } from '../types';
 import { TIPOS_MANIFESTACAO, STATUS_MANIFESTACAO } from '../utils/constants';
-import { Filter, X } from 'lucide-react';
 
 interface FiltrosManifestacaoProps {
   filtros: FiltrosManifestacao;
@@ -24,107 +23,128 @@ const FiltrosManifestacaoComponent: React.FC<FiltrosManifestacaoProps> = ({
   const hasActiveFilters = Object.values(filtros).some(value => value !== undefined);
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Filter size={20} className="text-gray-600" />
-            <h3 className="card-title">Filtros</h3>
+    <div>
+      {/* Primeira linha - Email e Protocolo */}
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="email">
+              <i className="fa fa-envelope text-primary"></i> E-mail do Solicitante
+            </label>
+            <input
+              id="email"
+              type="email"
+              className="form-control"
+              placeholder="Ex: usuario@email.com"
+              value={filtros.email || ''}
+              onChange={(e) => handleChange('email', e.target.value)}
+            />
           </div>
-          {hasActiveFilters && (
-            <button
-              onClick={onLimparFiltros}
-              className="btn btn-outline btn-sm"
-            >
-              <X size={16} />
-              Limpar
-            </button>
-          )}
+        </div>
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="protocolo">
+              <i className="fa fa-file-text-o text-primary"></i> Protocolo
+            </label>
+            <input
+              id="protocolo"
+              type="text"
+              className="form-control"
+              placeholder="Ex: PROT2024-000001"
+              value={filtros.protocolo || ''}
+              onChange={(e) => handleChange('protocolo', e.target.value)}
+            />
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Protocolo */}
-        <div className="form-group">
-          <label htmlFor="protocolo" className="form-label">
-            Protocolo
-          </label>
-          <input
-            id="protocolo"
-            type="text"
-            className="form-input"
-            placeholder="Ex: 2024-000001"
-            value={filtros.protocolo || ''}
-            onChange={(e) => handleChange('protocolo', e.target.value)}
-          />
+      {/* Segunda linha - Status e Tipo */}
+      <div className="row">
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="status">
+              <i className="fa fa-flag text-warning"></i> Status
+            </label>
+            <select
+              id="status"
+              className="form-control"
+              value={filtros.status || ''}
+              onChange={(e) => handleChange('status', e.target.value)}
+            >
+              <option value="">Todos</option>
+              {Object.entries(STATUS_MANIFESTACAO).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-
-        {/* Status */}
-        <div className="form-group">
-          <label htmlFor="status" className="form-label">
-            Status
-          </label>
-          <select
-            id="status"
-            className="form-select"
-            value={filtros.status || ''}
-            onChange={(e) => handleChange('status', e.target.value)}
-          >
-            <option value="">Todos os status</option>
-            {Object.entries(STATUS_MANIFESTACAO).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+        <div className="col-md-6">
+          <div className="form-group">
+            <label htmlFor="tipo">
+              <i className="fa fa-tag text-info"></i> Tipo
+            </label>
+            <select
+              id="tipo"
+              className="form-control"
+              value={filtros.tipo || ''}
+              onChange={(e) => handleChange('tipo', e.target.value)}
+            >
+              <option value="">Todos</option>
+              {Object.entries(TIPOS_MANIFESTACAO).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+      </div>
 
-        {/* Tipo */}
-        <div className="form-group">
-          <label htmlFor="tipo" className="form-label">
-            Tipo
-          </label>
-          <select
-            id="tipo"
-            className="form-select"
-            value={filtros.tipo || ''}
-            onChange={(e) => handleChange('tipo', e.target.value)}
-          >
-            <option value="">Todos os tipos</option>
-            {Object.entries(TIPOS_MANIFESTACAO).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+      {/* Terceira linha - Data Início, Data Fim e Botão Limpar */}
+      <div className="row">
+        <div className="col-md-4">
+          <div className="form-group">
+            <label htmlFor="dataInicio">
+              <i className="fa fa-calendar text-success"></i> Data Início
+            </label>
+            <input
+              id="dataInicio"
+              type="date"
+              className="form-control"
+              value={filtros.dataInicio || ''}
+              onChange={(e) => handleChange('dataInicio', e.target.value)}
+            />
+          </div>
         </div>
-
-        {/* Data Início */}
-        <div className="form-group">
-          <label htmlFor="dataInicio" className="form-label">
-            Data Início
-          </label>
-          <input
-            id="dataInicio"
-            type="date"
-            className="form-input"
-            value={filtros.dataInicio || ''}
-            onChange={(e) => handleChange('dataInicio', e.target.value)}
-          />
+        <div className="col-md-4">
+          <div className="form-group">
+            <label htmlFor="dataFim">
+              <i className="fa fa-calendar text-danger"></i> Data Fim
+            </label>
+            <input
+              id="dataFim"
+              type="date"
+              className="form-control"
+              value={filtros.dataFim || ''}
+              onChange={(e) => handleChange('dataFim', e.target.value)}
+            />
+          </div>
         </div>
-
-        {/* Data Fim */}
-        <div className="form-group">
-          <label htmlFor="dataFim" className="form-label">
-            Data Fim
-          </label>
-          <input
-            id="dataFim"
-            type="date"
-            className="form-input"
-            value={filtros.dataFim || ''}
-            onChange={(e) => handleChange('dataFim', e.target.value)}
-          />
+        <div className="col-md-4">
+          <div className="form-group">
+            <label>&nbsp;</label>
+            {hasActiveFilters && (
+              <button
+                onClick={onLimparFiltros}
+                className="btn btn-warning btn-block"
+                title="Limpar todos os filtros"
+              >
+                <i className="fa fa-times"></i> Limpar Filtros
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

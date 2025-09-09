@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Search, Loader2 } from 'lucide-react';
+import InputMask from 'react-input-mask';
 import { Manifestacao } from '../types';
 import { manifestacaoService } from '../services/api';
 import toast from 'react-hot-toast';
@@ -40,61 +40,64 @@ const ConsultaProtocolo: React.FC<ConsultaProtocoloProps> = ({ onManifestacaoFou
   };
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <h2 className="card-title">Consultar Manifestação</h2>
-        <p className="text-gray-600 text-sm">
-          Digite o número do protocolo para acompanhar o status da sua manifestação
-        </p>
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="form-group">
-          <label htmlFor="protocolo" className="form-label">
-            Número do Protocolo *
-          </label>
-          <input
-            id="protocolo"
-            type="text"
-            className={`form-input ${errors.protocolo ? 'border-red-500' : ''}`}
-            placeholder="Ex: 2024-000001"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-group">
+        <label htmlFor="protocolo">Número do Protocolo *</label>
+        <div className="input-group">
+          <span className="input-group-addon">
+            <i className="fa fa-search"></i>
+          </span>
+          <InputMask
+            mask="PROT9999-9999999999"
+            maskChar="_"
+            alwaysShowMask={false}
             {...register('protocolo', { 
               required: 'Protocolo é obrigatório',
               pattern: {
-                value: /^\d{4}-\d{6}$/,
-                message: 'Formato inválido. Use: AAAA-NNNNNN'
+                value: /^PROT\d{4}-\d{10}$/,
+                message: 'Formato inválido. Use: PROTAAAA-NNNNNNNNNN'
               }
             })}
-          />
-          {errors.protocolo && (
-            <span className="text-red-500 text-sm mt-1">{errors.protocolo.message}</span>
-          )}
-          <p className="text-sm text-gray-500 mt-1">
-            Formato: AAAA-NNNNNN (ex: 2024-000001)
-          </p>
-        </div>
-
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="btn btn-primary min-w-[200px]"
           >
-            {isLoading ? (
-              <>
-                <Loader2 size={20} className="loading" />
-                Consultando...
-              </>
-            ) : (
-              <>
-                <Search size={20} />
-                Consultar Protocolo
-              </>
+            {(inputProps: any) => (
+              <input
+                {...inputProps}
+                id="protocolo"
+                type="text"
+                className={`form-control ${errors.protocolo ? 'is-invalid' : ''}`}
+                placeholder="PROT____-__________"
+              />
             )}
-          </button>
+          </InputMask>
         </div>
-      </form>
-    </div>
+        {errors.protocolo ? (
+          <div className="invalid-feedback">{errors.protocolo.message}</div>
+        ) : (
+          <p className="help-block">
+            Digite o protocolo no formato: PROT + ano + hífen + número
+          </p>
+        )}
+      </div>
+
+
+      <div className="form-group">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="btn btn-primary btn-block"
+        >
+          {isLoading ? (
+            <>
+              <i className="fa fa-spinner fa-spin"></i> Consultando...
+            </>
+          ) : (
+            <>
+              <i className="fa fa-search"></i> Consultar Protocolo
+            </>
+          )}
+        </button>
+      </div>
+    </form>
   );
 };
 

@@ -15,36 +15,56 @@ const ConsultarProtocoloPage: React.FC = () => {
   };
 
   return (
-    <div className="container py-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            Consultar Manifestação
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Digite o número do protocolo para acompanhar o status da sua manifestação. 
-            Você recebeu este número quando registrou sua manifestação.
-          </p>
+    <div className="row">
+      <div className="col-md-12">
+        {/* Consulta Box */}
+        <div className="box box-primary">
+          <div className="box-header">
+            <h3 className="box-title">Consultar Manifestação</h3>
+            <div className="box-tools pull-right">
+              <span className="label label-primary">Consulta Rápida</span>
+            </div>
+          </div>
+          <div className="box-body">
+            {manifestacao ? (
+              <div>
+                {/* Results Header */}
+                <div className="alert alert-success alert-dismissible">
+                  <button 
+                    type="button" 
+                    className="close" 
+                    onClick={handleNovaConsulta}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '24px',
+                      fontWeight: 'bold',
+                      color: '#3c763d',
+                      padding: '0',
+                      margin: '0',
+                      cursor: 'pointer',
+                      lineHeight: '1',
+                      opacity: '0.7',
+                      transition: 'opacity 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.opacity = '1'}
+                    onMouseOut={(e) => e.currentTarget.style.opacity = '0.7'}
+                    title="Fechar e fazer nova consulta"
+                  >
+                    <i className="fa fa-times-circle"></i>
+                  </button>
+                  <h4><i className="icon fa fa-check"></i> Manifestação Encontrada!</h4>
+                  Aqui estão os detalhes da sua manifestação.
+                </div>
+                
+                <ManifestacaoCard manifestacao={manifestacao} />
+              </div>
+            ) : (
+              <ConsultaProtocolo onManifestacaoFound={handleManifestacaoFound} />
+            )}
+          </div>
         </div>
 
-        {manifestacao ? (
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Detalhes da Manifestação
-              </h2>
-              <button
-                onClick={handleNovaConsulta}
-                className="btn btn-outline"
-              >
-                Nova Consulta
-              </button>
-            </div>
-            <ManifestacaoCard manifestacao={manifestacao} />
-          </div>
-        ) : (
-          <ConsultaProtocolo onManifestacaoFound={handleManifestacaoFound} />
-        )}
       </div>
     </div>
   );
