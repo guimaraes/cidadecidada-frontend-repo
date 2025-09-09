@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import NovaManifestacaoPage from './pages/NovaManifestacao';
 import ConsultarProtocoloPage from './pages/ConsultarProtocolo';
 import PainelAtendentePage from './pages/PainelAtendente';
+import DashboardPage from './pages/Dashboard';
 
 const App: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false);
@@ -29,12 +30,14 @@ const App: React.FC = () => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="/">Home</a>
+                    <a href="/">Dashboard</a>
                   </li>
                   <li className="breadcrumb-item active">
-                    {location.pathname === '/' ? 'Nova Manifestação' : 
+                    {location.pathname === '/' ? 'Dashboard' : 
+                     location.pathname === '/nova-manifestacao' ? 'Nova Manifestação' :
                      location.pathname === '/consultar' ? 'Consultar Protocolo' :
-                     location.pathname === '/atendente' ? 'Painel do Atendente' : 'Dashboard'}
+                     location.pathname === '/atendente' ? 'Painel do Atendente' :
+                     location.pathname === '/dashboard' ? 'Dashboard' : 'Sistema'}
                   </li>
                 </ol>
               </div>
@@ -45,9 +48,11 @@ const App: React.FC = () => {
         <section className="content">
           <div className="container-fluid">
             <Routes>
-              <Route path="/" element={<NovaManifestacaoPage />} />
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/nova-manifestacao" element={<NovaManifestacaoPage />} />
               <Route path="/consultar" element={<ConsultarProtocoloPage />} />
               <Route path="/atendente" element={<PainelAtendentePage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
             </Routes>
           </div>
         </section>

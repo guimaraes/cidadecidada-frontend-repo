@@ -6,7 +6,8 @@ import {
   Users, 
   Settings, 
   Mail,
-  HelpCircle
+  HelpCircle,
+  BarChart3
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -19,11 +20,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
 
   const menuItems = [
     {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: BarChart3,
+      href: '/dashboard',
+      active: location.pathname === '/dashboard'
+    },
+    {
       id: 'nova-manifestacao',
       label: 'Nova Manifestação',
       icon: FileText,
-      href: '/',
-      active: location.pathname === '/'
+      href: '/nova-manifestacao',
+      active: location.pathname === '/nova-manifestacao'
     },
     {
       id: 'consultar-protocolo',
